@@ -1,0 +1,36 @@
+{
+  "name": "basic-functions",
+  "version": "1.0.0",
+  "description": "Collection of functions that return specific values (noop, true, false, echo, etc)",
+  "main": "index.js",
+  "scripts": {
+	"test": "vows test/test.js --spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bninni/basic-functions.git"
+  },
+  "keywords": [
+    "basic",
+    "functions",
+    "standard",
+    "functions",
+    "bsae",
+    "functions",
+    "return",
+    "noop",
+    "echo",
+    "true",
+    "false",
+    "throw"
+  ],
+  "devDependencies": {
+    "vows": "~0.8.1"
+  },
+  "author": "Brian Ninni <brian@ninni.io> (http://ninni.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bninni/basic-functions/issues"
+  },
+  "homepage": "https://github.com/bninni/basic-functions#readme"
+}
