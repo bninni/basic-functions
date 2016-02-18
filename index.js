@@ -1,43 +1,56 @@
 (function( exports ){
+	
 	function noop(){};
-	exports.undefined = noop;
+	exports.undefined = exports.noOp = exports.noop = noop;
+	
 	exports.null = function(){
 		return null;
 	}
+	
 	exports.this = function(){
 		return this;
 	}
-	exports.NaN = function(){
+	
+	exports.nan = exports.NaN = function(){
 		return NaN;
 	}
-	exports.zero = function(){
+	
+	exports['0'] = exports.Zero = exports.zero = function(){
 		return 0;
 	}
-	exports.one = function(){
+	
+	exports['1'] = exports.One = exports.one = function(){
 		return 1;
 	}
-	exports.Infinity = function(){
+	
+	exports.infinity = exports.Infinity = function(){
 		return Infinity;
 	}
-	exports._Infinity = function(){
+	
+	exports._infinity = exports._Infinity = function(){
 		return -Infinity;
 	}
-	exports.true = function(){
+	
+	exports.True = exports.true = function(){
 		return true;
 	}
-	exports.false = function(){
+	
+	exports.False = exports.false = function(){
 		return false;
 	}
-	exports.string = function(){
+	
+	exports.String = exports.string = function(){
 		return '';
 	}
-	exports.array = function(){
+	
+	exports.Array = exports.array = function(){
 		return [];
 	}
-	exports.object = function(){
+	exports.Object = exports.object = function(){
 		return {};
 	}
-	exports.function = function(){
+	
+	exports.Function = exports.function = function(){
 		return function(){};
 	}
 
@@ -165,6 +178,14 @@
 				return nthFn( includeWith, nthHandle, n, is );
 			}
 			
+			function getFnThis( args ){
+				return function(){
+					return handleFn( this[key], args || arguments );
+				}
+			}
+			
+			ret.inThis = compileFn( includeWith, getFnThis );
+			
 			return ret;
 		}
 	
@@ -223,8 +244,5 @@
 	}
 	exports.echo =  build( echoHandle, false, 'value', is );
 	exports.return = exports.echo;
-	
-	exports.noop = noop;
-	exports.noOp = noop;
 	
 })( (typeof module === "object" && typeof module.exports === "object") ? module.exports : (baseFns = {}) )

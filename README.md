@@ -24,18 +24,42 @@ An simply reference the stored functions
 
 ```javascript
 baseFns.undefined() //undefined
+
 baseFns.null()      //null
+
 baseFns.true()      //true
+//or baseFns.True()
+
 baseFns.false()     //false
+//or baseFns.False()
+
 baseFns.zero()      //0
+//or baseFns[0], baseFns['0'], baseFns.Zero
+
 baseFns.one()       //1
+//or baseFns[1], baseFns['1'], baseFns.One
+
 baseFns.NaN()       //NaN
+//or baseFns.nan()
+
 baseFns.Infinity()  //Infinity
+//or baseFns.infinity()
+
 baseFns._Infinity() //-Infinity
-baseFns.array()     //[]
-baseFns.object()    //{}
-baseFns.string()    //{}
-baseFns.function()  //function(){}
+//or baseFns._infinity()
+
+baseFns.Array()     //[]
+//or baseFns.array()
+
+baseFns.Object()    //{}
+//or baseFns.object()
+
+baseFns.String()    //{}
+//or baseFns.string()
+
+baseFns.Function()  //function(){}
+//or baseFns.function()
+
 baseFns.this()      //this
 
 //more detailed example of how 'this' can be used
@@ -44,7 +68,7 @@ var obj = {},
 
 f() === obj; //true
 ```
-
+<a name="handlers"></a>
 ## Handlers
 
   * [Empty Handler](#empty)
@@ -55,6 +79,8 @@ f() === obj; //true
 
 <a name="empty"></a>
 ### Empty Handler
+
+[Back to Top](#handlers)
 
 * **noop**
 * **noOp**
@@ -70,6 +96,8 @@ fn() //undefined
 
 <a name="call"></a>
 ### Calling a Function
+
+[Back to Top](#handlers)
 
 * **call**
 * **invoke**
@@ -245,6 +273,29 @@ fn( multObj ) //50
 fn( addObj )  //15
 ```
 
+* **call.key( _key_ ).inThis**
+ 
+*Returns the result of invoking the property* `key` *in* `this` *with the input arguments as the* `arguments`
+
+```javascript
+var fn = baseFns.call.key('fn').inThis.bind( addObj );
+//or baseFns.invoke.key('fn').inThis.bind( addObj )
+
+fn( 5, 10 ) //15
+```
+
+* **call.key( _key_ ).inThis.with( _args_ )**
+ 
+*Returns the result of invoking the property* `key` *in* `this` *with* `args` *as the* `arguments`
+
+```javascript
+var fn = baseFns.call.key('fn').inThis.with( 5, 10 );
+//or baseFns.invoke.key('fn').inThis.with( 5, 10 ).bind( addObj )
+
+fn()          //15
+fn( 25, 100 ) //15
+```
+
 * **call.key( _key_ ).inNth( _n_ )**
  
 *Returns the result of invoking the property* `key` *in the* `nth` *input argument*
@@ -292,6 +343,8 @@ fn( [], addObj, multObj ) //50
 
 <a name="instantiate"></a>
 ### Instantiating a Constructor
+
+[Back to Top](#handlers)
 
 * **instantiate**
 * **new**
@@ -439,6 +492,30 @@ var fn = baseFns.instantiate.key('fn').with( true );
 fn( arrObj ) //[ true ]
 ```
 
+* **instantiate.key( _key_ ).inThis**
+ 
+*Returns a* `new` *instance of the property* `key` *in* `this` *with the input arguments as the* `arguments`
+
+```javascript
+var fn = baseFns.instantiate.key('fn').inThis.bind( arrObj );
+//or baseFns.new.key('fn').inThis.bind( arrObj )
+
+fn()       //[]
+fn( 'hi' ) //[ 'hi' ]
+```
+
+* **instantiate.key( _key_ ).inThis.with( _args_ )**
+ 
+*Returns a* `new` *instance of the property* `key` *in* `this` *with* `args` *as the* `arguments`
+
+```javascript
+var fn = baseFns.instantiate.key('fn').inThis.with( true ).bind( arrObj );
+//or baseFns.new.key('fn').inThis.with( true ).bind( arrObj )
+
+fn()       //[ true ]
+fn( 'hi' ) //[ true ]
+```
+
 * **instantiate.key( _key_ ).inNth( _n_ )**
  
 *Returns a* `new` *instance of the property* `key` *in the* `nth` *input argument*
@@ -485,6 +562,8 @@ fn( 100, arrObj, strObj ) //'true'
 
 <a name="throw"></a>
 ### Throwing an Error
+
+[Back to Top](#handlers)
 
 * **throw**
 * **error**
@@ -564,6 +643,17 @@ fn( errObj )     //throws Error
 fn( typeErrObj ) //throws TypeError
 ```
 
+* **throw.key( _key_ ).inThis**
+ 
+*Throws the property* `key` *in* `this`
+
+```javascript
+var fn = baseFns.throw.key('err').inThis.bind( errObj );
+//or baseFns.error.key('err').inThis.bind( errObj )
+
+fn() //throws Error
+```
+
 * **throw.key( _key_ ).inNth( _n_ )**
  
 *Throws the property* `key` *in the* `nth` *input argument*
@@ -588,6 +678,8 @@ fn( 'hi', errObj, typeErrObj ) //throws TypeError
 
 <a name="echo"></a>
 ### Echoing a Value
+
+[Back to Top](#handlers)
 
 * **echo**
 * **return**
@@ -652,6 +744,17 @@ var obj = {
   //or baseFns.return.key('str')
 
 fn( obj ) //'hi'
+```
+
+* **echo.key( _key_ ).inThis**
+ 
+*Returns the property* `key` *in* `this`
+
+```javascript
+var fn = baseFns.echo.key('str').inThis.bind( obj );
+//or baseFns.return.key('str').inThis.bind( obj )
+
+fn() //'hi'
 ```
 
 * **echo.key( _key_ ).inNth( _n_ )**

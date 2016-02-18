@@ -46,6 +46,10 @@ vows.describe('Test').addBatch({
 			assert.equal( ret.call.key('fn')({a:true, fn:go}), 10 );
 			assert.equal( ret.call.key('fn').with('hi')({a:true, fn:go}), 'hi' );
 			
+			assert.equal( ret.call.key('fn').inThis.bind({fn:go})(), 10 );
+			assert.equal( ret.call.key('fn').inThis.bind({fn:go})(true), true );
+			assert.equal( ret.call.key('fn').inThis.with('hi').bind({fn:go})(), 'hi' );
+			
 			assert.equal( ret.call.key('fn').inNth(1)([],{a:true, fn:go}), 10 );
 			assert.equal( ret.call.key('fn').inNth(1).with('hi')([],{a:true, fn:go}), 'hi' );
 			
@@ -75,6 +79,10 @@ vows.describe('Test').addBatch({
 			assert.deepEqual( ret.instantiate.key('fn')({a:true, fn:Array}), [] );
 			assert.deepEqual( ret.instantiate.key('fn').with('hi')({a:true, fn:Array}), ['hi'] );
 			
+			assert.deepEqual( ret.instantiate.key('fn').inThis.bind({fn:Array})(), [] );
+			assert.deepEqual( ret.instantiate.key('fn').inThis.bind({fn:Array})(true), [true] );
+			assert.deepEqual( ret.instantiate.key('fn').inThis.with('hi').bind({fn:Array})(), ['hi'] );
+			
 			assert.deepEqual( ret.instantiate.key('fn').inNth(1)([],{a:true, fn:Array}), [] );
 			assert.deepEqual( ret.instantiate.key('fn').inNth(1).with('hi')([],{a:true, fn:Array}), ['hi'] );
 			
@@ -101,6 +109,8 @@ vows.describe('Test').addBatch({
 			
 			assert.throws( function(){ ret.throw.key('err')({a:true, err:myErr}) } );
 			
+			assert.throws( function(){ ret.throw.key('err').inThis.bind({err:myErr})() } );
+			
 			assert.throws( function(){ ret.throw.key('err').inNth(1)([],{a:true, err:myErr}) } );
 			
 			assert.throws( function(){ ret.throw.key('err').inNth(1).ofType(Object)({},{a:true, err:myErr}) } );
@@ -117,6 +127,8 @@ vows.describe('Test').addBatch({
 			assert.equal( ret.echo.nth(1).ofType(Function)(String, true, Array ), Array );
 			
 			assert.equal( ret.echo.key('a')({a:true, fn:String}), true );
+			
+			assert.equal( ret.echo.key('a').inThis.bind({a:true})(10), true );
 			
 			assert.equal( ret.echo.key('a').inNth(1)([],{a:10, fn:String}), 10 );
 			
