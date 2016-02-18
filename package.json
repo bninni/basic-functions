@@ -1,6 +1,6 @@
 {
   "name": "basic-functions",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Collection of functions that return specific values (noop, true, false, echo, etc)",
   "main": "index.js",
   "scripts": {

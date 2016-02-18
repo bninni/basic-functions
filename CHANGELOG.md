@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5
+
+**Date:** *2016-02-18*
+
+**Changes:**
+  * Fixed bug in logic of 'is' function
+  
 ## 1.0.4
 
 **Date:** *2016-02-18*

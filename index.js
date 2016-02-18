@@ -66,7 +66,7 @@
 	
 	//is the given value of the given type
 	function is(val, con){
-		return exists( val ) && typeof con === "string" ? typeof val === con : val.constructor === con;
+		return exists( val ) && (typeof con === "string" ? typeof val === con : val.constructor === con);
 	}
 	
 	//is the given value an instance of the given type
