@@ -180,7 +180,7 @@
 			
 			function getFnThis( args ){
 				return function(){
-					return handleFn( this[key], args || arguments );
+					return handleFn( this[key], args || arguments, this );
 				}
 			}
 			
@@ -220,11 +220,10 @@
 	})();
 	
 	
-	function callHandle( f, args ){
-		if( is(f,Function) ) return f.apply(this, args);
+	function callHandle( f, args, that ){
+		if( is(f,Function) ) return f.apply(that || this, args);
 	}
-	exports.invoke = build( callHandle, true, 'fn', is, Function );
-	exports.call = exports.invoke;
+	exports.run = exports.call = build( callHandle, true, 'fn', is, Function );
 
 	function instantiateHandle( f, args ){
 		args = args ? toArgArray( args ) : [];

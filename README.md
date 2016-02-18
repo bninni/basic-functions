@@ -100,14 +100,14 @@ fn() //undefined
 [Back to Top](#handlers)
 
 * **call**
-* **invoke**
+* **run**
 
 *Returns the result of invoking the first input argument*
   * *Only if the input argument is a* `Function`
   
 ```javascript
 var fn = baseFns.call;
-//or baseFns.invoke
+//or baseFns.run
 
 function arrFn(){
   return ['a','b','c'];
@@ -122,7 +122,7 @@ fn( arrFn ) //['a','b','c']
 
 ```javascript
 var fn = baseFns.call.with( 5, 10 );
-//or baseFns.invoke.with( 5, 10 )
+//or baseFns.run.with( 5, 10 )
 
 function add( a, b ){
   return a + b;
@@ -142,7 +142,7 @@ fn( multiply ) //50
 
 ```javascript
 var fn = baseFns.call.fn( add );
-//or baseFns.invoke.fn( add )
+//or baseFns.run.fn( add )
 
 fn( 5, 10 ) //15
 ```
@@ -153,7 +153,7 @@ fn( 5, 10 ) //15
 
 ```javascript
 var fn = baseFns.call.fn( add ).with( 5, 10 );
-//or baseFns.invoke.fn( add ).with( 5, 10 )
+//or baseFns.run.fn( add ).with( 5, 10 )
 
 fn()          //15
 fn( 25, 100 ) //15
@@ -165,7 +165,7 @@ fn( 25, 100 ) //15
 
 ```javascript
 var fn = baseFns.call.firstFn;
-//or baseFns.invoke.firstFn
+//or baseFns.run.firstFn
 
 function numFn(){
   return 10;
@@ -184,7 +184,7 @@ fn( false, numFn, strFn ) //10
 
 ```javascript
 var fn = baseFns.call.firstFn.with( 5, 10 );
-//or baseFns.invoke.firstFn.with( 5, 10 )
+//or baseFns.run.firstFn.with( 5, 10 )
 
 fn( [], add, multiply )     //15
 ```
@@ -197,7 +197,7 @@ fn( [], add, multiply )     //15
 
 ```javascript
 var fn = baseFns.call.nth(1);
-//or baseFns.invoke.nth(1)
+//or baseFns.run.nth(1)
 
 fn( false, numFn, strFn ) //10
 ```
@@ -208,7 +208,7 @@ fn( false, numFn, strFn ) //10
 
 ```javascript
 var fn = baseFns.call.nth(1).with( 5, 10 );
-//or baseFns.invoke.nth(1).with( 5, 10 )
+//or baseFns.run.nth(1).with( 5, 10 )
 
 fn( [], add, multiply ) //15
 ```
@@ -221,7 +221,7 @@ fn( [], add, multiply ) //15
 
 ```javascript
 var fn = baseFns.call.nth(1).fn;
-//or baseFns.invoke.nth(1).fn
+//or baseFns.run.nth(1).fn
 
 fn( false, numFn, strFn ) //'hi'
 ```
@@ -232,7 +232,7 @@ fn( false, numFn, strFn ) //'hi'
 
 ```javascript
 var fn = baseFns.call.nth(1).fn.with( 5, 10 );
-//or baseFns.invoke.nth(1).fn.with( 5, 10 )
+//or baseFns.run.nth(1).fn.with( 5, 10 )
 
 fn( [], add, multiply ) //50
 ```
@@ -249,7 +249,7 @@ var numObj = {
     fn : strFn
   },
   fn = baseFns.call.key('fn');
-  //or baseFns.invoke.key('fn')
+  //or baseFns.run.key('fn')
 
 fn( numObj ) //10
 fn( strObj ) //'hi'
@@ -267,7 +267,7 @@ var multObj = {
     fn : add
   },
   fn = baseFns.call.key('fn').with( 5, 10 );
-  //or baseFns.invoke.key('fn').with( 5, 10 )
+  //or baseFns.run.key('fn').with( 5, 10 )
 
 fn( multObj ) //50
 fn( addObj )  //15
@@ -279,7 +279,7 @@ fn( addObj )  //15
 
 ```javascript
 var fn = baseFns.call.key('fn').inThis.bind( addObj );
-//or baseFns.invoke.key('fn').inThis.bind( addObj )
+//or baseFns.run.key('fn').inThis.bind( addObj )
 
 fn( 5, 10 ) //15
 ```
@@ -290,7 +290,7 @@ fn( 5, 10 ) //15
 
 ```javascript
 var fn = baseFns.call.key('fn').inThis.with( 5, 10 );
-//or baseFns.invoke.key('fn').inThis.with( 5, 10 ).bind( addObj )
+//or baseFns.run.key('fn').inThis.with( 5, 10 ).bind( addObj )
 
 fn()          //15
 fn( 25, 100 ) //15
@@ -302,7 +302,7 @@ fn( 25, 100 ) //15
 
 ```javascript
 var fn = baseFns.call.key('fn').inNth(1);
-//or baseFns.invoke.key('fn').inNth(1)
+//or baseFns.run.key('fn').inNth(1)
 
 fn( false, numObj, strObj ) //10
 ```
@@ -313,7 +313,7 @@ fn( false, numObj, strObj ) //10
 
 ```javascript
 var fn = baseFns.call.key('fn').inNth(1).with( 5, 10 );
-//or baseFns.invoke.key('fn').inNth(1).with( 5, 10 )
+//or baseFns.run.key('fn').inNth(1).with( 5, 10 )
 
 fn( [], addObj, multObj ) //15
 ```
@@ -324,7 +324,7 @@ fn( [], addObj, multObj ) //15
 
 ```javascript
 var fn = baseFns.call.key('fn').inNth(1).ofType( Object );
-//or baseFns.invoke.key('fn').inNth(1).ofType( Object )
+//or baseFns.run.key('fn').inNth(1).ofType( Object )
 
 fn( false, numObj, strObj ) //'hi'
 ```
@@ -336,7 +336,7 @@ fn( false, numObj, strObj ) //'hi'
 ```javascript
 //can also use strings for the type
 var fn = baseFns.call.key('fn').inNth(1).ofType( 'object' ).with( 5, 10 );
-//or baseFns.invoke.key('fn').inNth(1).ofType( 'object' ).with( 5, 10 )
+//or baseFns.run.key('fn').inNth(1).ofType( 'object' ).with( 5, 10 )
 
 fn( [], addObj, multObj ) //50
 ```
