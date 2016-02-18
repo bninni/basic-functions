@@ -1,8 +1,3 @@
-/*
-TODO:
--'type' in ofType can be string.  If so, then use typeOf instead of constructor
-
-*/
 (function( exports ){
 	function noop(){};
 	exports.undefined = noop;
@@ -82,128 +77,120 @@ TODO:
 			}
 		}
 		
-		//to handle the nth instance of the given type with the given arguments
-		function handleNth( handle, comp, type, n, args ){
-			return function(){
-				var v = getNthArgByType( comp, arguments, n, type );
-				return handle( v, args );
-			}
-		}
-		
-		//to handle a specific argument index with the given arguments
-		function handleArg( handle, i, args ){
-			return function(){
-				return handle( arguments[i], args );
-			}
-		}
-		
-		//to handle a given key
-		function handleKey( handle, key, args, n, comp, type ){
-			n = n || 0;
-			return function(){
-				var obj = type ? getNthArgByType( comp, arguments, n, type ) : arguments[n];
-				if( exists(obj) && exists( obj[key] ) ) return handle( obj[key], args );
-			}
-		}
-	
-		function build( handleFn, includeWith, name, compFn, type ){
-			//create the base function
-			var ret = function( v ){
-				return handleFn( v );
-			},
-			upperName = name[0].toUpperCase() + name.slice(1);
+		//to create the function with a with attribute
+		function compileFn( includeWith, getFn ){			
+			var ret = getFn();
 			
-			//to run the handle function with the given arguments
 			if( includeWith ) ret.with = function(){
-				var args = arguments;
+				return getFn( arguments );
+			}
+			
+			return ret;
+			
+		}
+		
+		//create the base function
+		function baseFn( includeWith, handleFn ){
+			function getFn( args ){
 				return function( v ){
 					return handleFn( v, args );
 				}
 			}
 			
-			//if a type was provided:
-			if( type ){
-				//to handle the first occurrence of the type
-				ret['first' + upperName ] = handleNth( handleFn, compFn, type, 0 );
-				if( includeWith ) ret['first' + upperName ].with = function(){
-					return handleNth( handleFn, compFn, type, 0, arguments );
+			return compileFn( includeWith, getFn );
+		}
+		
+		//create the value function
+		function valueFn( includeWith, handleFn, value ){
+			
+			function getFn( args ){
+				return function(){
+					return handleFn( value, args || arguments );
 				}
+			}
+			
+			return compileFn( includeWith, getFn );
+		}
+		
+		//create the nthOfType function
+		function nthOfType( includeWith, handleFn, compFn, type, n ){
+			
+			n = typeof n === 'number' ? n : 0;
+			
+			function getFn( args ){
+				return function(){
+					var value = getNthArgByType( compFn, arguments, n, type );
+					return handleFn( value, args );
+				}
+			}
+			
+			return compileFn( includeWith, getFn );
+		};
+	
+		//to create the nth function
+		function nthFn( includeWith, handleFn, n, compFn, type, name ){
+			
+			var ret = compileFn( includeWith, getFn );
+			
+			function getFn( args ){
+				return function(){
+					return handleFn( arguments[n], args );
+				}
+			}
+			
+			if( type ) ret[name] = nthOfType( includeWith, handleFn, compFn, type, n );
+			else ret.ofType = function( type ){
+				return nthOfType( includeWith, handleFn, compFn, type, n )
+			}
+			
+			return ret;
+		}
+		
+		//to create the key function
+		function keyFn( includeWith, handleFn, key ){
+		
+			var ret = compileFn( includeWith, getFn );
+						
+			function getFn( args ){
+				return function( v ){
+					if( exists(v) ) return handleFn( v[key], args );
+				}
+			}
+			
+			function nthHandle( v, args ){
+				if( exists(v) ) return handleFn( v[key], args );
+			}
+			
+			ret.inNth = function( n ){
+				return nthFn( includeWith, nthHandle, n, is );
+			}
+			
+			return ret;
+		}
+	
+		function build( handleFn, includeWith, name, compFn, type ){
+			//create the base function
+			var ret = baseFn( includeWith, handleFn ),
+				upperName = name[0].toUpperCase() + name.slice(1);
+			
+			//if a type was provided, add handle for first occurrence of the type
+			if( type ) ret['first' + upperName ] = nthOfType( includeWith, handleFn, compFn, type );
+			
+			//to handle a specific value
+			ret[name] = function( value ){
+				return valueFn( includeWith, handleFn, value );
 			}
 			
 			//to handle the nth occurrence of the type
 			ret.nth = function( n ){
-				var ret = handleArg( handleFn, n ),
-					ofType = type ? handleNth( handleFn, compFn, type, n ) : function( type ){
-						var ret = handleNth( handleFn, compFn, type, n );
-						
-						if( includeWith ) ret.with = function(){
-							return handleNth( handleFn, compFn, type, n, arguments );
-						}
-						
-						return ret;
-					};
-					
-				if( includeWith ){
-					if( type ) ofType.with = function(){
-						return handleNth( handleFn, compFn, type, n, arguments );
-					}
-					ret.with = function(){
-						return handleArg( handleFn, n, arguments );
-					}
-				}
-				
-				ret[ type ? name : 'ofType'] = ofType;
-				
-				return ret;
+				return nthFn( includeWith, handleFn, n, compFn, type, name );
 			}
 			
 			//to handle the given key
 			ret.key = function( key ){
-				var ret = handleKey( handleFn, key );
-				//to handle the given key in the given arguments
-				if( includeWith ) ret.with = function(){
-					return handleKey( handleFn, key, arguments );
-				}
-				//to handle the given key in the nth of arg/type
-				ret.inNth = function( n ){
-						//to call the given key in the nth argument
-					var ret = handleKey( handleFn, key, [], n );
-					
-						//to call the given key in the nth type
-					ret.ofType = function( t ){
-						var ret = handleKey( handleFn, key, [], n, is, t );
-						if( includeWith ) ret.with = function(){
-							return handleKey( handleFn, key, arguments, n, is, t );
-						}
-						return ret;
-					};
-					
-					//to call the given key in the nth argument with the given arguments
-					if( includeWith ) ret.with = function(){
-						return handleKey( handleFn, key, arguments, n );
-					}
-					
-					return ret;
-				}
-				return ret;
+				return keyFn( includeWith, handleFn, key );
 			}
 			
-			//to handle a specific value
-			ret[name] = function( v ){
-				var ret = function(){
-					return handleFn( v, arguments );
-				}
-				//to handle the specific value with the given arguments
-				if( includeWith ) ret.with = function(){
-					var args = arguments;
-					return function(){
-						return handleFn( v, args );
-					}
-				}
-				return ret;
-			}
-			
-		
 			return ret;
 		}
 		
