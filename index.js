@@ -166,12 +166,12 @@
 						
 			function getFn( args ){
 				return function( v ){
-					if( exists(v) ) return handleFn( v[key], args );
+					if( exists(v) ) return handleFn( v[key], args, v );
 				}
 			}
 			
 			function nthHandle( v, args ){
-				if( exists(v) ) return handleFn( v[key], args );
+				if( exists(v) ) return handleFn( v[key], args, v );
 			}
 			
 			ret.inNth = function( n ){

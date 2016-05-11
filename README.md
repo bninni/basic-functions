@@ -15,7 +15,7 @@ npm install -g basic-functions
 Then import the module into your program:
 
 ```javascript
-var baseFns = require('basic-functions')
+var just = require('basic-functions')
 ```
 
 An simply reference the stored functions
@@ -23,48 +23,48 @@ An simply reference the stored functions
 ## Default Values
 
 ```javascript
-baseFns.undefined() //undefined
+just.undefined() //undefined
 
-baseFns.null()      //null
+just.null()      //null
 
-baseFns.true()      //true
-//or baseFns.True()
+just.true()      //true
+//or just.True()
 
-baseFns.false()     //false
-//or baseFns.False()
+just.false()     //false
+//or just.False()
 
-baseFns.zero()      //0
-//or baseFns[0], baseFns['0'], baseFns.Zero
+just.zero()      //0
+//or just[0], just['0'], just.Zero
 
-baseFns.one()       //1
-//or baseFns[1], baseFns['1'], baseFns.One
+just.one()       //1
+//or just[1], just['1'], just.One
 
-baseFns.NaN()       //NaN
-//or baseFns.nan()
+just.NaN()       //NaN
+//or just.nan()
 
-baseFns.Infinity()  //Infinity
-//or baseFns.infinity()
+just.Infinity()  //Infinity
+//or just.infinity()
 
-baseFns._Infinity() //-Infinity
-//or baseFns._infinity()
+just._Infinity() //-Infinity
+//or just._infinity()
 
-baseFns.Array()     //[]
-//or baseFns.array()
+just.Array()     //[]
+//or just.array()
 
-baseFns.Object()    //{}
-//or baseFns.object()
+just.Object()    //{}
+//or just.object()
 
-baseFns.String()    //{}
-//or baseFns.string()
+just.String()    //{}
+//or just.string()
 
-baseFns.Function()  //function(){}
-//or baseFns.function()
+just.Function()  //function(){}
+//or just.function()
 
-baseFns.this()      //this
+just.this()      //this
 
 //more detailed example of how 'this' can be used
 var obj = {},
-  f = baseFns.this.bind( obj );
+  f = just.this.bind( obj );
 
 f() === obj; //true
 ```
@@ -88,8 +88,8 @@ f() === obj; //true
 *Does nothing*
 
 ```javascript
-var fn = baseFns.noop;
-//or baseFns.noOp
+var fn = just.noop;
+//or just.noOp
 
 fn() //undefined
 ```
@@ -106,8 +106,8 @@ fn() //undefined
   * *Only if the input argument is a* `Function`
   
 ```javascript
-var fn = baseFns.call;
-//or baseFns.run
+var fn = just.call;
+//or just.run
 
 function arrFn(){
   return ['a','b','c'];
@@ -121,8 +121,8 @@ fn( arrFn ) //['a','b','c']
 *Returns the result of invoking the first input argument with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.with( 5, 10 );
-//or baseFns.run.with( 5, 10 )
+var fn = just.call.with( 5, 10 );
+//or just.run.with( 5, 10 )
 
 function add( a, b ){
   return a + b;
@@ -141,8 +141,8 @@ fn( multiply ) //50
 *Returns the result of invoking* `fn` *with the input arguments as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.fn( add );
-//or baseFns.run.fn( add )
+var fn = just.call.fn( add );
+//or just.run.fn( add )
 
 fn( 5, 10 ) //15
 ```
@@ -152,8 +152,8 @@ fn( 5, 10 ) //15
 *Returns the result of invoking* `fn` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.fn( add ).with( 5, 10 );
-//or baseFns.run.fn( add ).with( 5, 10 )
+var fn = just.call.fn( add ).with( 5, 10 );
+//or just.run.fn( add ).with( 5, 10 )
 
 fn()          //15
 fn( 25, 100 ) //15
@@ -164,8 +164,8 @@ fn( 25, 100 ) //15
 *Returns the result of invoking the first input argument that is a* `Function`
 
 ```javascript
-var fn = baseFns.call.firstFn;
-//or baseFns.run.firstFn
+var fn = just.call.firstFn;
+//or just.run.firstFn
 
 function numFn(){
   return 10;
@@ -183,8 +183,8 @@ fn( false, numFn, strFn ) //10
 *Returns the result of invoking the first input argument that is a* `Function` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.firstFn.with( 5, 10 );
-//or baseFns.run.firstFn.with( 5, 10 )
+var fn = just.call.firstFn.with( 5, 10 );
+//or just.run.firstFn.with( 5, 10 )
 
 fn( [], add, multiply )     //15
 ```
@@ -196,8 +196,8 @@ fn( [], add, multiply )     //15
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.call.nth(1);
-//or baseFns.run.nth(1)
+var fn = just.call.nth(1);
+//or just.run.nth(1)
 
 fn( false, numFn, strFn ) //10
 ```
@@ -207,8 +207,8 @@ fn( false, numFn, strFn ) //10
 *Returns the result of invoking the* `nth` *input argument with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.nth(1).with( 5, 10 );
-//or baseFns.run.nth(1).with( 5, 10 )
+var fn = just.call.nth(1).with( 5, 10 );
+//or just.run.nth(1).with( 5, 10 )
 
 fn( [], add, multiply ) //15
 ```
@@ -220,8 +220,8 @@ fn( [], add, multiply ) //15
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.call.nth(1).fn;
-//or baseFns.run.nth(1).fn
+var fn = just.call.nth(1).fn;
+//or just.run.nth(1).fn
 
 fn( false, numFn, strFn ) //'hi'
 ```
@@ -231,8 +231,8 @@ fn( false, numFn, strFn ) //'hi'
 *Returns the result of invoking the* `nth` *input argument that is a* `Function` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.nth(1).fn.with( 5, 10 );
-//or baseFns.run.nth(1).fn.with( 5, 10 )
+var fn = just.call.nth(1).fn.with( 5, 10 );
+//or just.run.nth(1).fn.with( 5, 10 )
 
 fn( [], add, multiply ) //50
 ```
@@ -248,8 +248,8 @@ var numObj = {
   strObj = {
     fn : strFn
   },
-  fn = baseFns.call.key('fn');
-  //or baseFns.run.key('fn')
+  fn = just.call.key('fn');
+  //or just.run.key('fn')
 
 fn( numObj ) //10
 fn( strObj ) //'hi'
@@ -266,8 +266,8 @@ var multObj = {
   addObj = {
     fn : add
   },
-  fn = baseFns.call.key('fn').with( 5, 10 );
-  //or baseFns.run.key('fn').with( 5, 10 )
+  fn = just.call.key('fn').with( 5, 10 );
+  //or just.run.key('fn').with( 5, 10 )
 
 fn( multObj ) //50
 fn( addObj )  //15
@@ -278,8 +278,8 @@ fn( addObj )  //15
 *Returns the result of invoking the property* `key` *in* `this` *with the input arguments as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.key('fn').inThis.bind( addObj );
-//or baseFns.run.key('fn').inThis.bind( addObj )
+var fn = just.call.key('fn').inThis.bind( addObj );
+//or just.run.key('fn').inThis.bind( addObj )
 
 fn( 5, 10 ) //15
 ```
@@ -289,8 +289,8 @@ fn( 5, 10 ) //15
 *Returns the result of invoking the property* `key` *in* `this` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.key('fn').inThis.with( 5, 10 );
-//or baseFns.run.key('fn').inThis.with( 5, 10 ).bind( addObj )
+var fn = just.call.key('fn').inThis.with( 5, 10 );
+//or just.run.key('fn').inThis.with( 5, 10 ).bind( addObj )
 
 fn()          //15
 fn( 25, 100 ) //15
@@ -301,8 +301,8 @@ fn( 25, 100 ) //15
 *Returns the result of invoking the property* `key` *in the* `nth` *input argument*
 
 ```javascript
-var fn = baseFns.call.key('fn').inNth(1);
-//or baseFns.run.key('fn').inNth(1)
+var fn = just.call.key('fn').inNth(1);
+//or just.run.key('fn').inNth(1)
 
 fn( false, numObj, strObj ) //10
 ```
@@ -312,8 +312,8 @@ fn( false, numObj, strObj ) //10
 *Returns the result of invoking the property* `key` *in the* `nth` *input argument with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.call.key('fn').inNth(1).with( 5, 10 );
-//or baseFns.run.key('fn').inNth(1).with( 5, 10 )
+var fn = just.call.key('fn').inNth(1).with( 5, 10 );
+//or just.run.key('fn').inNth(1).with( 5, 10 )
 
 fn( [], addObj, multObj ) //15
 ```
@@ -323,8 +323,8 @@ fn( [], addObj, multObj ) //15
 *Returns the result of invoking the property* `key` *in the* `nth` *input argument of type* `type`
 
 ```javascript
-var fn = baseFns.call.key('fn').inNth(1).ofType( Object );
-//or baseFns.run.key('fn').inNth(1).ofType( Object )
+var fn = just.call.key('fn').inNth(1).ofType( Object );
+//or just.run.key('fn').inNth(1).ofType( Object )
 
 fn( false, numObj, strObj ) //'hi'
 ```
@@ -335,8 +335,8 @@ fn( false, numObj, strObj ) //'hi'
 
 ```javascript
 //can also use strings for the type
-var fn = baseFns.call.key('fn').inNth(1).ofType( 'object' ).with( 5, 10 );
-//or baseFns.run.key('fn').inNth(1).ofType( 'object' ).with( 5, 10 )
+var fn = just.call.key('fn').inNth(1).ofType( 'object' ).with( 5, 10 );
+//or just.run.key('fn').inNth(1).ofType( 'object' ).with( 5, 10 )
 
 fn( [], addObj, multObj ) //50
 ```
@@ -353,8 +353,8 @@ fn( [], addObj, multObj ) //50
   * *Only if the input argument is a* `Function`
   
 ```javascript
-var fn = baseFns.instantiate;
-//or baseFns.new
+var fn = just.instantiate;
+//or just.new
 
 fn( Array ) //[]
 ```
@@ -364,8 +364,8 @@ fn( Array ) //[]
 *Returns a* `new` *instance of the first input argument with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.with( 'abc' );
-//or baseFns.new.with( 'abc' )
+var fn = just.instantiate.with( 'abc' );
+//or just.new.with( 'abc' )
 
 fn( Array )   //['abc']
 ```
@@ -375,8 +375,8 @@ fn( Array )   //['abc']
 *Returns a* `new` *instance of* `fn` *with the input arguments as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.fn( Array );
-//or baseFns.new.fn( Array )
+var fn = just.instantiate.fn( Array );
+//or just.new.fn( Array )
 
 fn( 5 ) //[5]
 ```
@@ -386,8 +386,8 @@ fn( 5 ) //[5]
 *Returns a* `new` *instance of* `fn` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.fn( Array ).with( 5, 10 );
-//or baseFns.new.fn( Array ).with( 5, 10 )
+var fn = just.instantiate.fn( Array ).with( 5, 10 );
+//or just.new.fn( Array ).with( 5, 10 )
 
 fn()          //[5, 10]
 fn( 25, 100 ) //[5, 10]
@@ -398,8 +398,8 @@ fn( 25, 100 ) //[5, 10]
 *Returns a* `new` *instance of the first input argument that is a* `Function`
 
 ```javascript
-var fn = baseFns.instantiate.firstFn;
-//or baseFns.new.firstFn
+var fn = just.instantiate.firstFn;
+//or just.new.firstFn
 
 fn( 100, Array, String ) //[]
 ```
@@ -409,8 +409,8 @@ fn( 100, Array, String ) //[]
 *Returns a* `new` *instance of the first input argument that is a* `Function` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.firstFn.with( true );
-//or baseFns.new.firstFn.with( true )
+var fn = just.instantiate.firstFn.with( true );
+//or just.new.firstFn.with( true )
 
 fn( 100, Array, String ) //[ true ]
 ```
@@ -422,8 +422,8 @@ fn( 100, Array, String ) //[ true ]
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.instantiate.nth(1);
-//or baseFns.new.nth(1)
+var fn = just.instantiate.nth(1);
+//or just.new.nth(1)
 
 fn( 100, Array, String ) //[]
 ```
@@ -433,8 +433,8 @@ fn( 100, Array, String ) //[]
 *Returns a* `new` *instance of the* `nth` *input argument with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.nth(1).with( true );
-//or baseFns.new.nth(1).with( true )
+var fn = just.instantiate.nth(1).with( true );
+//or just.new.nth(1).with( true )
 
 fn( 100, Array, String ) //[ true ]
 ```
@@ -446,8 +446,8 @@ fn( 100, Array, String ) //[ true ]
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.instantiate.nth(1).fn;
-//or baseFns.new.nth(1).fn
+var fn = just.instantiate.nth(1).fn;
+//or just.new.nth(1).fn
 
 fn( 100, Array, String ) //''
 ```
@@ -457,8 +457,8 @@ fn( 100, Array, String ) //''
 *Returns a* `new` *instance of the* `nth` *input argument that is a* `Function` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.nth(1).fn.with( true );
-//or baseFns.new.nth(1).fn.with( true )
+var fn = just.instantiate.nth(1).fn.with( true );
+//or just.new.nth(1).fn.with( true )
 
 fn( 100, Array, String ) //'true'
 ```
@@ -474,8 +474,8 @@ var arrObj = {
   strObj = {
     fn : String
   },
-  fn = baseFns.instantiate.key('fn');
-  //or baseFns.new.key('fn')
+  fn = just.instantiate.key('fn');
+  //or just.new.key('fn')
 
 fn( arrObj ) //[]
 fn( strObj ) //''
@@ -486,8 +486,8 @@ fn( strObj ) //''
 *Returns a* `new` *instance of the property* `key` *in the first input argument with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.key('fn').with( true );
-//or baseFns.new.key('fn').with( true )
+var fn = just.instantiate.key('fn').with( true );
+//or just.new.key('fn').with( true )
 
 fn( arrObj ) //[ true ]
 ```
@@ -497,8 +497,8 @@ fn( arrObj ) //[ true ]
 *Returns a* `new` *instance of the property* `key` *in* `this` *with the input arguments as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.key('fn').inThis.bind( arrObj );
-//or baseFns.new.key('fn').inThis.bind( arrObj )
+var fn = just.instantiate.key('fn').inThis.bind( arrObj );
+//or just.new.key('fn').inThis.bind( arrObj )
 
 fn()       //[]
 fn( 'hi' ) //[ 'hi' ]
@@ -509,8 +509,8 @@ fn( 'hi' ) //[ 'hi' ]
 *Returns a* `new` *instance of the property* `key` *in* `this` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.key('fn').inThis.with( true ).bind( arrObj );
-//or baseFns.new.key('fn').inThis.with( true ).bind( arrObj )
+var fn = just.instantiate.key('fn').inThis.with( true ).bind( arrObj );
+//or just.new.key('fn').inThis.with( true ).bind( arrObj )
 
 fn()       //[ true ]
 fn( 'hi' ) //[ true ]
@@ -521,8 +521,8 @@ fn( 'hi' ) //[ true ]
 *Returns a* `new` *instance of the property* `key` *in the* `nth` *input argument*
 
 ```javascript
-var fn = baseFns.instantiate.key('fn').inNth(1);
-//or baseFns.new.key('fn').inNth(1)
+var fn = just.instantiate.key('fn').inNth(1);
+//or just.new.key('fn').inNth(1)
 
 fn( 100, arrObj, strObj ) //[]
 ```
@@ -532,8 +532,8 @@ fn( 100, arrObj, strObj ) //[]
 *Returns a* `new` *instance of the property* `key` *in the* `nth` *input argument with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.key('fn').inNth(1).with( true );
-//or baseFns.new.key('fn').inNth(1).with( true )
+var fn = just.instantiate.key('fn').inNth(1).with( true );
+//or just.new.key('fn').inNth(1).with( true )
 
 fn( 100, arrObj, strObj ) //[ true ]
 ```
@@ -543,8 +543,8 @@ fn( 100, arrObj, strObj ) //[ true ]
 *Returns a* `new` *instance of the property* `key` *in the* `nth` *input argument of type* `type`
 
 ```javascript
-var fn = baseFns.instantiate.key('fn').inNth(1).ofType( Object );
-//or baseFns.new.key('fn').inNth(1).ofType( Object )
+var fn = just.instantiate.key('fn').inNth(1).ofType( Object );
+//or just.new.key('fn').inNth(1).ofType( Object )
 
 fn( 100, arrObj, strObj ) //''
 ```
@@ -554,8 +554,8 @@ fn( 100, arrObj, strObj ) //''
 *Returns a* `new` *instance of the property* `key` *in the* `nth` *input argument of type* `type` *with* `args` *as the* `arguments`
 
 ```javascript
-var fn = baseFns.instantiate.key('fn').inNth(1).ofType( 'object' ).with( true );
-//or baseFns.new.key('fn').inNth(1).ofType( 'object' ).with( true );
+var fn = just.instantiate.key('fn').inNth(1).ofType( 'object' ).with( true );
+//or just.new.key('fn').inNth(1).ofType( 'object' ).with( true );
 
 fn( 100, arrObj, strObj ) //'true'
 ```
@@ -571,8 +571,8 @@ fn( 100, arrObj, strObj ) //'true'
 *Throws the first input argument*
   
 ```javascript
-var fn = baseFns.throw;
-//or baseFns.error
+var fn = just.throw;
+//or just.error
 
 fn( new Error ) //throws Error
 ```
@@ -582,8 +582,8 @@ fn( new Error ) //throws Error
 *Throws* `fn`
 
 ```javascript
-var fn = baseFns.throw.error( new TypeError );
-//or baseFns.error.error( new TypeError )
+var fn = just.throw.error( new TypeError );
+//or just.error.error( new TypeError )
 
 fn() //throws TypeError
 ```
@@ -593,8 +593,8 @@ fn() //throws TypeError
 *Throws the first input argument that is an* `instanceof Error`
 
 ```javascript
-var fn = baseFns.throw.firstError;
-//or baseFns.error.firstError
+var fn = just.throw.firstError;
+//or just.error.firstError
 
 fn( {}, new Error, new TypeError ) //throws Error
 ```
@@ -606,8 +606,8 @@ fn( {}, new Error, new TypeError ) //throws Error
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.throw.nth(1);
-//or baseFns.error.nth(1)
+var fn = just.throw.nth(1);
+//or just.error.nth(1)
 
 fn( {}, new Error, new TypeError ) //throws Error
 ```
@@ -619,8 +619,8 @@ fn( {}, new Error, new TypeError ) //throws Error
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.throw.nth(1).error;
-//or baseFns.error.nth(1).error
+var fn = just.throw.nth(1).error;
+//or just.error.nth(1).error
 
 fn( {}, new Error, new TypeError ) //throws TypeError
 ```
@@ -636,8 +636,8 @@ var errObj = {
   typeErrObj = {
     err : new TypeError
   },
-  fn = baseFns.throw.key('err');
-  //or baseFns.error.key('err')
+  fn = just.throw.key('err');
+  //or just.error.key('err')
 
 fn( errObj )     //throws Error
 fn( typeErrObj ) //throws TypeError
@@ -648,8 +648,8 @@ fn( typeErrObj ) //throws TypeError
 *Throws the property* `key` *in* `this`
 
 ```javascript
-var fn = baseFns.throw.key('err').inThis.bind( errObj );
-//or baseFns.error.key('err').inThis.bind( errObj )
+var fn = just.throw.key('err').inThis.bind( errObj );
+//or just.error.key('err').inThis.bind( errObj )
 
 fn() //throws Error
 ```
@@ -659,8 +659,8 @@ fn() //throws Error
 *Throws the property* `key` *in the* `nth` *input argument*
 
 ```javascript
-var fn = baseFns.throw.key('err').inNth(1);
-//or baseFns.error.key('err').inNth(1)
+var fn = just.throw.key('err').inNth(1);
+//or just.error.key('err').inNth(1)
 
 fn( 'hi', errObj, typeErrObj ) //throws Error
 ```
@@ -670,8 +670,8 @@ fn( 'hi', errObj, typeErrObj ) //throws Error
 *Throws the property* `key` *in the* `nth` *input argument of type* `type`
 
 ```javascript
-var fn = baseFns.throw.key('err').inNth(1).ofType( Object );
-//or baseFns.error.key('err').inNth(1).ofType( Object )
+var fn = just.throw.key('err').inNth(1).ofType( Object );
+//or just.error.key('err').inNth(1).ofType( Object )
 
 fn( 'hi', errObj, typeErrObj ) //throws TypeError
 ```
@@ -687,8 +687,8 @@ fn( 'hi', errObj, typeErrObj ) //throws TypeError
 *Returns the first input argument*
   
 ```javascript
-var fn = baseFns.echo;
-//or baseFns.return
+var fn = just.echo;
+//or just.return
 
 fn( 10 ) //10
 ```
@@ -698,8 +698,8 @@ fn( 10 ) //10
 *Returns* `v`
 
 ```javascript
-var fn = baseFns.echo.value( 10 );
-//or baseFns.return.value( 10 )
+var fn = just.echo.value( 10 );
+//or just.return.value( 10 )
 
 fn()       //10
 fn( true ) //10
@@ -712,8 +712,8 @@ fn( true ) //10
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.echo.nth(1);
-//or baseFns.return.nth(1)
+var fn = just.echo.nth(1);
+//or just.return.nth(1)
 
 fn( 'hi', 100, 'there' ) //100
 ```
@@ -725,8 +725,8 @@ fn( 'hi', 100, 'there' ) //100
 *Note: Index starts at* `0`
 
 ```javascript
-var fn = baseFns.echo.nth(1).ofType('string');
-//or baseFns.return.nth(1).ofType('string')
+var fn = just.echo.nth(1).ofType('string');
+//or just.return.nth(1).ofType('string')
 
 fn( 'hi', 100, 'there' ) //'there'
 ```
@@ -740,8 +740,8 @@ var obj = {
     str : 'hi',
     num : 100
   },
-  fn = baseFns.echo.key('str');
-  //or baseFns.return.key('str')
+  fn = just.echo.key('str');
+  //or just.return.key('str')
 
 fn( obj ) //'hi'
 ```
@@ -751,8 +751,8 @@ fn( obj ) //'hi'
 *Returns the property* `key` *in* `this`
 
 ```javascript
-var fn = baseFns.echo.key('str').inThis.bind( obj );
-//or baseFns.return.key('str').inThis.bind( obj )
+var fn = just.echo.key('str').inThis.bind( obj );
+//or just.return.key('str').inThis.bind( obj )
 
 fn() //'hi'
 ```
@@ -762,8 +762,8 @@ fn() //'hi'
 *Returns the property* `key` *in the* `nth` *input argument*
 
 ```javascript
-var fn = baseFns.echo.key('num').inNth(1);
-//or baseFns.return.key('num').inNth(1)
+var fn = just.echo.key('num').inNth(1);
+//or just.return.key('num').inNth(1)
 
 fn( 'hi', obj ) //100
 ```
@@ -773,8 +773,8 @@ fn( 'hi', obj ) //100
 *Returns the property* `key` *in the* `nth` *input argument of type* `type`
 
 ```javascript
-var fn = baseFns.echo.key('str').inNth(1).ofType( Object );
-//or baseFns.return.key('str').inNth(1).ofType( Object )
+var fn = just.echo.key('str').inNth(1).ofType( Object );
+//or just.return.key('str').inNth(1).ofType( Object )
 
 fn( 'hi', {}, obj ) //'hi'
 ```
